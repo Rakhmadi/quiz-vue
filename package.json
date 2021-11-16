@@ -7,10 +7,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@mdi/font": "^6.5.95",
     "@vitejs/plugin-vue": "^1.9.3",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.3.11",
