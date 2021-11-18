@@ -7,6 +7,8 @@
 </template>
 <script>
 export default {
-    
+    mounted() {
+        localStorage.setItem('page',1)
+    },
 }
 </script>
