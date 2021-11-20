@@ -27,18 +27,22 @@
             <div data-aos="fade">
                  <p class="text-xl text-gray-600 mb-2 mt-2 text-center" data-aos="fade">{{this.soalSinggle.soal}}</p>
                  <div class="flex flex-col p-2">
-                     <div :class="{'border-purple-600':this.indexJawaban === index ,'text-purple-600':this.indexJawaban === index}" @click="selectOptions(index, [this.soalSinggle.jawaban[index]])" v-for="(item,index) in this.soalSinggle.jawaban" :key="index"  class="rounded-full w-full my-1 bg-purple-200 transition py-1 px-2 border-2 border-purple-300 text-purple-400 cursor-pointer" >
+                     <div :class="{'border-purple-600':this.indexJawaban === index ,'text-purple-600':this.indexJawaban === index}" 
+                        @click="selectOptions(index, [this.soalSinggle.jawaban[index]])" 
+                        v-for="(item,index) in this.soalSinggle.jawaban" 
+                        :key="index"  
+                        class="rounded-full w-full my-1 bg-purple-200 transition py-1 px-2 border-2 border-purple-300 text-purple-400 cursor-pointer" >
                          <font>{{item.text}}</font>
                      </div>
                  </div>
             </div>
  
-            <div class="flex p-2 justify-end">
+            <div class="flex p-2 justify-end" v-show="this.indexJawaban != '' || this.indexJawaban === 0">
                 <button @click="goNext(),goPercent()" class="rounded-full bg-purple-300 py-1 px-2 border-2 border-purple-800 text-purple-800"><i class=" mdi mdi-arrow-right"></i> Next</button>
             </div>
 
         </div>
-    </div>
+    </div>  
 </template>
 <script>
 export default {
@@ -131,7 +135,7 @@ export default {
             selectOptions(index,jawaban){
                 this.indexJawaban = index
                 this.jawabanSoal = jawaban 
-                console.log(this.jawabanSoal);
+                console.log(this.indexJawaban);
             },
             goNext(){
                 
