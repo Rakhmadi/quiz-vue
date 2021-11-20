@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div>
-                  <font class="rounded-full bg-purple-200 py-1 px-2 text-purple-500 w-auto text-xs">{{percent}}% complete</font>
+                  <font class="rounded-full bg-purple-200 py-1 px-2 text-purple-500 w-auto text-xs">{{this.page}} Dari {{this.listSoal.length}} Soal</font>
                   <div class="overflow-hidden h-2 mt-2 text-xs flex rounded bg-purple-200">
                     <div :style="{'width':`${percent}%`}" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
                   </div>
@@ -43,6 +43,7 @@
 <script>
 export default {
     mounted() {
+        console.log(localStorage.storedData);
         this.countDownTimer()
         clearInterval(this.interval);
         this.countDownTimer()
@@ -131,9 +132,9 @@ export default {
                 this.indexJawaban = index
                 this.jawabanSoal = jawaban 
                 console.log(this.jawabanSoal);
-x
             },
             goNext(){
+                
                 if(localStorage.getItem('page') >= this.listSoal.length){
                         localStorage.removeItem('countdownNum');
                         localStorage.removeItem('page');
@@ -142,6 +143,7 @@ x
                         this.saverLocalstorage()
                         this.jawabanSoal = []
                         this.indexJawaban = ''
+                        this.page = localStorage.getItem('page');
                 }else{
                         localStorage.setItem('page',Number(localStorage.getItem('page'))+1)
                         clearInterval(this.interval);
@@ -150,6 +152,7 @@ x
                         this.countDownTimer()
                         this.saverLocalstorage()
                         this.indexJawaban = ''
+                        this.page = localStorage.getItem('page');
                 }
             },saverLocalstorage(){
                 let getDataSoal = localStorage.getItem('dataSoal');
