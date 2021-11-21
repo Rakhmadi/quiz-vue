@@ -3,7 +3,7 @@
         <div class="p-3 bg-white w-full rounded-md" data-aos="fade">
                 <div class="flex item-center justify-between">
                     <div>
-                        <img class="w-14 h-14 rounded-full " src="https://avatarfiles.alphacoders.com/457/45744.png" alt="" srcset="">
+                        <img class="w-14 h-14 rounded-full " :src="randImage" alt="" srcset="">
                     </div>
                     <div class="self-center">
                          <div  :class="{'text-yellow-500 ':true,'bg-yellow-500 ':true }" class=" rounded-full h-14 w-14 flex justify-center bg-green-100 text-green-500" >
@@ -13,7 +13,7 @@
                 </div>
             <div>
                 <div class="flex flex-col">
-                    <font class="text-lg text-gray-600 m-0 p-0 ">Rakhmadiwalker</font>
+                    <font class="text-lg text-gray-600 m-0 p-0 ">{{name}}</font>
                 </div>
             </div>
             <div>
@@ -45,6 +45,7 @@
     </div>  
 </template>
 <script>
+import avatarArr from '../avatarArr.js'
 export default {
     mounted() {
         console.log(localStorage.storedData);
@@ -66,15 +67,21 @@ export default {
         }
         this.soalSinggle = this.listSoal[localStorage.getItem('page')-1]
     },
+    computed:{
+        randImage(){
+            return avatarArr[Math.floor(Math.random() * avatarArr.length)]
+        }
+    },
     data() {
         return {
             page:localStorage.getItem('page'),
-            countDown : 20,
+            countDown : 15,
             alphabets:["a","b","c","d","e"],
             indexJawaban:'',
             jawabanSoal:[{"text":"tidak di jawab","correct":false}],
             soalSinggle : [],
             percent : 0,
+            name:localStorage.getItem('name'),
             listSoal:[
                 {
                     soal:'lorem ipsum dolor sit amet',
