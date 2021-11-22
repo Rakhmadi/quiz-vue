@@ -150,7 +150,7 @@ export default {
                         localStorage.removeItem('countdownNum');
                         localStorage.removeItem('page');
                         clearInterval(this.interval);
-                        this.countDown = 20
+                        this.countDown = 15
                         this.saverLocalstorage()
                         this.jawabanSoal = []
                         this.indexJawaban = ''
@@ -159,7 +159,7 @@ export default {
                         localStorage.setItem('page',Number(localStorage.getItem('page'))+1)
                         clearInterval(this.interval);
                         this.soalSinggle = this.listSoal[localStorage.getItem('page')-1]
-                        this.countDown = 20
+                        this.countDown = 15
                         this.countDownTimer()
                         this.saverLocalstorage()
                         this.indexJawaban = ''
