@@ -28,22 +28,28 @@
     </div>
 </template>
 <script>
-import { getDatabase, ref, child, get } from "firebase/database";
+import { addDoc, collection , getFirestore, getDocs } from "firebase/firestore";
+
 import app from '../firebase'
 export default {
     async mounted(){
-        app
-
-const dbRef = ref(getDatabase());
-get(child(dbRef, `/Lboard/mII49Hggpkp2aSgiVZ8u`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-  }
-}).catch((error) => {
-  console.error(error);
-});
+        
     }
 }
 </script>
+<!-- app
+const db = getFirestore();
+const querySnapshot = await getDocs(collection(db, "mII49Hggpkp2aSgiVZ8u"));
+querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${JSON.parse(doc.data())}`);
+}); -->
+ <!-- try {
+  const docRef = await addDoc(collection(db, "mII49Hggpkp2aSgiVZ8u"), {
+      name:'asdf',
+      score:77
+  });
+
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+} -->
