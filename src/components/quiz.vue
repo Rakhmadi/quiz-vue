@@ -1,11 +1,19 @@
 <template>
-        <div class="p-3 bg-white w-full rounded-md" data-aos="fade">
+    <div class="h-screen p-6">
+                <div class="p-3 bg-white w-full rounded-md" data-aos="fade">
                 <div class="flex item-center justify-between">
                     <div>
                         <img class="w-14 h-14 rounded-full " :src="randImage" alt="" srcset="">
                     </div>
                     <div class="self-center">
-                         <div  :class="{'text-yellow-500 ':true,'bg-yellow-500 ':true }" class=" rounded-full h-14 w-14 flex justify-center bg-green-100 text-green-500" >
+                         <div class=" rounded-full h-14 w-14 flex justify-center "   :class="{
+                             'text-green-500':countDown > 10,
+                             'bg-green-100':countDown > 10 ,
+                             'text-yellow-500':countDown > 5 && countDown <= 10,
+                             'bg-yellow-100':countDown > 5 && countDown <= 10,
+                             'text-red-500':countDown <= 5,
+                             'bg-red-100':countDown <= 5 ,
+                             }" >
                              <font  class="text-xl self-center">{{countDown}}s</font>
                          </div>
                     </div>
@@ -41,13 +49,22 @@
             </div>
 
         </div>
+    </div>
 </template>
 <script>
 import avatarArr from '../avatarArr.js'
 import listSoal from '../dataSoal.js';
+
+import { addDoc, collection , getFirestore, getDocs ,Timestamp} from "firebase/firestore";
 export default {
+    created(){
+    this.xc()
+        if (localStorage.getItem('isDone') === 'true') {
+            this.$router.push({path:'/'})
+        }
+    },
     mounted() {
-        console.log(localStorage.storedData);
+ 
         this.countDownTimer()
         clearInterval(this.interval);
         this.countDownTimer()
@@ -65,10 +82,11 @@ export default {
             this.countDown = localStorage.getItem('countdownNum')
         }
         this.soalSinggle = this.listSoal[localStorage.getItem('page')-1]
+
     },
     computed:{
         randImage(){
-            return avatarArr[Math.floor(Math.random() * avatarArr.length)]
+            return localStorage.getItem('img')
         }
     },
     data() {
@@ -81,7 +99,8 @@ export default {
             soalSinggle : [],
             percent : 0,
             name:localStorage.getItem('name'),
-            listSoal: listSoal
+            listSoal: listSoal,
+            score:0
         }
     },
     methods: {
@@ -107,6 +126,20 @@ export default {
                 this.jawabanSoal = jawaban 
                 console.log(this.indexJawaban);
             },
+            async svData(){
+                        const db = getFirestore();
+                        try {
+                            const docRef = await addDoc(collection(db, "Lboard"), {
+                                name:this.name,
+                                score:(this.score / 10) * 100,
+                                image:localStorage.getItem('img'),
+                                timestamp:Timestamp.now()
+                            });
+                                 console.log("Document written with ID: ", docRef.id);
+                        } catch (e) {
+                                 console.error("Error adding document: ", e);
+                        }
+            },
             goNext(){
                 
                 if(localStorage.getItem('page') >= this.listSoal.length){
@@ -120,8 +153,17 @@ export default {
                         localStorage.setItem('dataJawabanSv',localStorage.getItem('dataSoal'))
                         clearInterval(this.interval);
                         localStorage.removeItem('dataSoal');
-                        this.$router.push({path:'/Score'})
-
+                        localStorage.setItem('isDone',true)
+                        this.$router.push({path:'/Score'});
+                        ////////////////
+                        let dXX = JSON.parse(localStorage.getItem('dataJawabanSv'));
+                        for(let x = 0 ; x < dXX.length ;x++){
+                            if(dXX[x].correct){
+                                this.score++
+                            }
+                        }
+                        console.log(this.score);
+                        this.svData();
 
                 }else{
                         localStorage.setItem('page',Number(localStorage.getItem('page'))+1)
@@ -144,6 +186,9 @@ export default {
                     localStorage.setItem('dataSoal',JSON.stringify([...xN,...this.jawabanSoal]));
                   }
                 this.jawabanSoal = [{"text":"tidak di jawab","correct":false}]
+            },xc(){
+                let x = avatarArr[Math.floor(Math.random() * avatarArr.length)];
+                localStorage.setItem('img',x);
             }
     },
 }

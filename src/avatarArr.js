@@ -1,11 +1,11 @@
 const avatarArr = [
-    "https://avatarfiles.alphacoders.com/121/thumb-1920-121539.png",
-    "https://avatarfiles.alphacoders.com/110/thumb-1920-110248.png",
-    "https://avatarfiles.alphacoders.com/950/thumb-1920-95035.png",
-    "https://avatarfiles.alphacoders.com/160/thumb-1920-160392.png",
-    "https://avatarfiles.alphacoders.com/161/thumb-1920-161339.png",
-    "https://avatarfiles.alphacoders.com/156/thumb-1920-156141.png",
-    "https://avatarfiles.alphacoders.com/161/thumb-1920-161165.png",
-    "https://avatarfiles.alphacoders.com/160/thumb-1920-160505.jpg"
+    "assets/img01.png",
+    "assets/img02.png",
+    "assets/img03.png",
+    "assets/img04.png",
+    "assets/img05.png",
+    "assets/img06.png",
+    "assets/img07.png",
+    "assets/img08.jpg"
 ]
 export default avatarArr

@@ -1,8 +1,9 @@
 <template>
-        <div class="p-3 bg-white rounded-md box-content " data-aos="fade">
+        <div class="p-3 bg-white rounded-md h-full m-6" data-aos="fade">
+                <button @click="$router.push({path:'/'})"><i class="text-2xl text-gray-600 mdi mdi-arrow-left"></i></button>
                 <div class="flex item-center justify-center mt-7">
                     <div>
-                        <img class="w-32 h-32 rounded-full " src="https://avatarfiles.alphacoders.com/110/thumb-1920-110248.png"  alt="" srcset="">
+                        <img class="w-32 h-32 rounded-full " :src="img"  alt="" srcset="">
                     </div>
                 </div>
                 <div class="flex item-center justify-center ">
@@ -11,14 +12,22 @@
                     </div>
                 </div>
                 <div class="flex flex-col px-3">
-                    <div class=" rounded-full h-20 w-20 flex justify-center bg-green-100 text-green-500" >
-                        <font  class="text-2xl self-center">{{(score / 10) * 100}}</font>
+                    <div class=" rounded-full h-20 w-20 flex justify-center" 
+                         :class="{
+                             'bg-green-100':ScoreComp >= 70,
+                             'text-green-500':ScoreComp >= 70,
+                             'bg-yellow-100':ScoreComp < 70 && ScoreComp >= 50,
+                             'text-yellow-500':ScoreComp < 70 && ScoreComp >= 50,
+                             'bg-red-100':ScoreComp < 50,
+                             'text-red-500':ScoreComp < 50,
+                             }" >
+                        <font  class="text-2xl self-center">{{ScoreComp}}</font>
                     </div>
                     <div class="">
                         <font class="text-xl ml-2 text-gray-600">Your Score</font>
                     </div>
                 </div>
-                <div class="flex flex-col p-3">
+                <div class="flex flex-col h-full p-3">
                         <div v-for="(item,index) in lv" :key="index" class="p-2 mt-2 bg-white w-full shadow-md rounded-md border-2 border-purple-500 " data-aos="fade">
                             <p class="m-2">{{item.soal}}</p>
                             <div class="flex flex-row justify-between border-2 p-2 rounded-md shadow-md" 
@@ -41,7 +50,7 @@
         </div>
 </template>
 <script>
-import { addDoc, collection , getFirestore, getDocs } from "firebase/firestore";
+
 import listSoal from '../dataSoal'
 import app from '../firebase'
 export default {
@@ -59,17 +68,23 @@ export default {
                 if (storageJawaban[x].correct) {
                     this.score++
                 }
-            }
+            } 
+            
+
     },computed:{
         iconC(i){
             return (i?'mdi mdi-check':'mdi mdi-close')
+        },
+        ScoreComp(){
+            return (this.score / 10) * 100;
         }
     },
     data(){
         return{
             lv:[],
             name:localStorage.getItem('name'),
-            score:0
+            score:0,
+            img:localStorage.getItem('img')
         }
     }
 }
