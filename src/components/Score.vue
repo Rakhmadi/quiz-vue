@@ -1,6 +1,12 @@
 <template>
         <div class="p-3 bg-white rounded-md h-full m-6" data-aos="fade">
-                <button @click="$router.push({path:'/'})"><i class="text-2xl text-gray-600 mdi mdi-arrow-left"></i></button>
+                <button @click="$router.push({path:'/'})">
+                <i class="text-2xl text-gray-600">
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                    </svg>
+                </i>
+                </button>
                 <div class="flex item-center justify-center mt-7">
                     <div>
                         <img class="w-32 h-32 rounded-full " :src="img"  alt="" srcset="">

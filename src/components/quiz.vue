@@ -45,7 +45,8 @@
             </div>
  
             <div class="flex p-2 justify-end" v-show="this.indexJawaban != '' || this.indexJawaban === 0">
-                <button @click="goNext(),goPercent()" class="rounded-full bg-purple-300 py-1 px-2 border-2 border-purple-800 text-purple-800"><i class=" mdi mdi-arrow-right"></i> Next</button>
+                <button @click="goNext(),goPercent()" 
+                    class="rounded-full bg-purple-300 py-1 px-2 border-2 border-purple-800 text-purple-800">Next</button>
             </div>
 
         </div>
