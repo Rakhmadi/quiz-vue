@@ -104,7 +104,6 @@ export default {
         return {
             page:localStorage.getItem('page'),
             countDown : 15,
-            alphabets:["a","b","c","d","e"],
             indexJawaban:'',
             jawabanSoal:[{"text":"tidak di jawab","correct":false}],
             soalSinggle : [],
@@ -119,6 +118,7 @@ export default {
 
                 let kali =  (localStorage.getItem('page')) * 100
                 this.percent = (kali) / this.listSoal.length
+                
             },
             countDownTimer() {
                 this.interval = setInterval(() => {
